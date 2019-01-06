@@ -19,4 +19,4 @@ RUN wget https://www.nuget.org/api/v2/package/Selenium.WebDriver/3.141.0 -O sele
 COPY Get-MixedContent.ps1 Get-MixedContent.ps1
 COPY Get-SitemapUrl.ps1 Get-SitemapUrl.ps1
 
-CMD [ "pwsh", "-File ./Get-MixedContent.ps1 -Url $SITE_MAP_URL" ]
+CMD [ "pwsh", "-File", "./Get-MixedContent.ps1"]

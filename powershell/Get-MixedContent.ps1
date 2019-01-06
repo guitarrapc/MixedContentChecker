@@ -1,8 +1,7 @@
 #!/usr/bin/env pwsh
 #Requires -Version 6.0
 param(
-    [Parameter(Mandatory = $true)]
-    [string]$Url
+    [string]$Url = "$env:SITE_MAP_URL"
 )
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
