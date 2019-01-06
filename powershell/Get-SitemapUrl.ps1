@@ -6,7 +6,7 @@ function Get-SitemapUrl {
         [string]$Url
     )
 
-    $res = Invoke-Webrequest "$Url/sitemap.xml"
+    $res = Invoke-Webrequest $Url
     if ($res.StatusCode -ne 200) {
         throw $res
     }

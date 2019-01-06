@@ -27,12 +27,13 @@ Add-Type -LiteralPath ./WebDriver.dll
 . ./Get-SitemapUrl.ps1
 
 $urls = Get-SitemapUrl -Url $Url
-foreach ($url in $urls) {
-    try {
+try {
+    $options = [OpenQA.Selenium.Chrome.ChromeOptions]::new()
+    $options.AddArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage", "log-level=3")
+    $driver = [OpenQA.Selenium.Chrome.ChromeDriver]::new($here, $options)
+
+    foreach ($url in $urls) {
         Write-Host ("checking $url") -ForegroundColor Green
-        $options = [OpenQA.Selenium.Chrome.ChromeOptions]::new()
-        $options.AddArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage", "log-level=3")
-        $driver = [OpenQA.Selenium.Chrome.ChromeDriver]::new($here, $options)
         $driver.Url = $url
 
         $logs = $driver.Manage().Logs.GetLog('browser')
@@ -45,8 +46,7 @@ foreach ($url in $urls) {
             $mixedContentLogs | Format-List
         }
     }
-    finally {
-        $driver.Quit()
-    }
 }
-
+finally {
+    $driver.Quit()
+}
