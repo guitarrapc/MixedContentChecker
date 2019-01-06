@@ -43,7 +43,7 @@ cd powershell
 pwsh -File ./Get-MixedContent.ps1 -Url https://tech.guitarrapc.com/sitemap.xml
 ```
 
-You can run with docker. But currently selenium show error.
+You can run with docker.
 
 ```bash
 cd powershell
