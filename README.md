@@ -11,8 +11,6 @@ You can run by directly w/dotnet-sdk or docker.
 
 ```powershell
 cd csharp
-
-# dotnet on Windows
 dotnet clean
 dotnet build
 dotnet MixedContentCheker https://tech.guitarrapc.com/sitemap.xml
@@ -21,7 +19,7 @@ dotnet MixedContentCheker https://tech.guitarrapc.com/sitemap.xml
 run docker w/powershell.
 
 ```powershell
-cd powershell
+cd csharp
 docker build -t mixedcontentchecker .
 docker run -it --rm --mount type=bind,source="$($pwd.Path)/logs",target=/app/logs -e SITE_MAP_URL=https://tech.guitarrapc.com/sitemap.xml mixedcontentchecker
 ```
