@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixedContentChecker", "MixedContentChecker\MixedContentChecker.csproj", "{07068492-C982-4D13-8ED6-04B19B915B6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{7C176DE0-6E7D-4D3E-BA0C-F6E86365E8B3}"
+	ProjectSection(SolutionItems) = preProject
+		..\Dockerfile = ..\Dockerfile
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07068492-C982-4D13-8ED6-04B19B915B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07068492-C982-4D13-8ED6-04B19B915B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07068492-C982-4D13-8ED6-04B19B915B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07068492-C982-4D13-8ED6-04B19B915B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C25A32F8-E474-4A72-B201-3CE2860F60FF}
+	EndGlobalSection
+EndGlobal
