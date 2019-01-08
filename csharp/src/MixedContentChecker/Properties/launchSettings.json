@@ -2,7 +2,10 @@
   "profiles": {
     "MixedContentChecker": {
       "commandName": "Project",
-      "commandLineArgs": "https://tech.guitarrapc.com"
+      "commandLineArgs": "https://tech.guitarrapc.com/sitemap.xml",
+      "environmentVariables": {
+        "COUNT": "10"
+      }
     }
   }
 }

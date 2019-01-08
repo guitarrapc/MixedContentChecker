@@ -5,7 +5,9 @@ This tool will detect with chrome-headless browser + selenium.
 
 Please pass sitemap.xml url to check around all your url entries.
 
-## CSharp
+## How to run
+
+### CSharp
 
 You can run by directly w/dotnet-sdk or docker.
 
@@ -32,7 +34,7 @@ docker build -t mixedcontentchecker .
 docker run -it --rm --mount type=bind,source="${pwd}/logs",target=/app/logs -e SITE_MAP_URL=https://tech.guitarrapc.com/sitemap.xml mixedcontentchecker
 ```
 
-## PowerShell
+### PowerShell
 
 Download Selenium Webdriver, chrcome-driver and google-chrome.
 
@@ -49,6 +51,15 @@ docker build -t mixedcontentchecker_ps .
 docker run -it --rm -e SITE_MAP_URL=https://tech.guitarrapc.com/sitemap.xml mixedcontentchecker_ps
 ```
 
-## Golang
+### Golang
 
 [TBD]
+
+## Notice
+
+You can ignore following error message on windows.
+
+```
+[0109/032926.606:ERROR:gpu_process_transport_factory.cc(967)] Lost UI shared context.
+```
+> https://stackoverflow.com/questions/50143413/errorgpu-process-transport-factory-cc1007-lost-ui-shared-context-while-ini
