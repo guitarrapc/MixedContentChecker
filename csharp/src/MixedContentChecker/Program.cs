@@ -46,14 +46,16 @@ namespace MixedContentChecker
         private static async Task<string[]> GetHatenaBlogEntries(string url)
         {
             var client = new HttpClient();
-            var res = await client.GetStringAsync(url);
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            var sitemaps = XElement.Parse(res).Descendants(ns + "loc").Select(x => x.Value).ToArray();
-            var urls = await Task.WhenAll(sitemaps.Select(async x =>
+
+            async Task<string[]> FetchSitemapAsync(string dest)
             {
-                var eachRes = await client.GetStringAsync(x);
-                return XElement.Parse(eachRes).Descendants(ns + "loc").Select(y => y.Value).ToArray();
-            }));
+                var content = await client.GetStringAsync(dest);
+                return XElement.Parse(content).Descendants(ns + "loc").Select(x => x.Value).ToArray();
+            }
+
+            var sitemaps = await FetchSitemapAsync(url);
+            var urls = await Task.WhenAll(sitemaps.Select(x => FetchSitemapAsync(x)));
             var result = urls.SelectMany(x => x).ToArray();
             return result;
         }
@@ -68,8 +70,16 @@ namespace MixedContentChecker
             options.AddArgument("--headless");
             options.AddArgument("--no-sandbox");
 
+            // set parallelism
+            // 1. not define -> set default value (10)
+            // 2. invalid value -> sequential
+            // 3. below 1 -> sequential
+            // 4. others -> parallel
             var useParallel = Environment.GetEnvironmentVariable("COUNT") ?? "10";
-            if (!int.TryParse(useParallel, out var parallelism) || parallelism == 1)
+            var isSequential = !int.TryParse(useParallel, out var parallelism) || parallelism <= 1;
+
+            // run
+            if (isSequential)
             {
                 using (var chrome = new ChromeDriver(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), options))
                 {
@@ -81,10 +91,6 @@ namespace MixedContentChecker
             }
             else
             {
-                if (useParallel == null || parallelism <= 0)
-                {
-                    parallelism = 10;
-                }
                 Parallel.ForEach(urls, new ParallelOptions { MaxDegreeOfParallelism = parallelism }, (url, state, i) =>
                 {
                     using (var chrome = new ChromeDriver(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), options))
