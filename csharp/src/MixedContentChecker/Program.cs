@@ -15,6 +15,7 @@ namespace MixedContentChecker
     {
         private static string logPath;
         private static ConsoleColor orgColor;
+        private static object gate = new object();
 
         private static async Task Main(string[] args)
         {
@@ -129,10 +130,14 @@ namespace MixedContentChecker
 ---- | ---- | ---- | ----";
             File.WriteAllLines(logPath, new[] { header }, Encoding.UTF8);
         }
+
         private static void WriteContent(string url, string timestamp, string loglevel, string log)
         {
-            var line = $@"{url} | {timestamp} | {loglevel} | {log}";
-            File.AppendAllLines(logPath, new[] { line }, Encoding.UTF8);
+            lock (gate)
+            {
+                var line = $@"{url} | {timestamp} | {loglevel} | {log}";
+                File.AppendAllLines(logPath, new[] { line }, Encoding.UTF8);
+            }
         }
     }
 }
